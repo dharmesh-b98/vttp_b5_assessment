@@ -26,7 +26,7 @@ public class BoardReader {
 
     public static void printBoard(char[][] board){
         for (int i = 0; i<3; i++){
-            System.out.println(String.valueOf(board[i][0]) +' '+String.valueOf(board[i][1]) +' '+String.valueOf(board[i][2]));
+            System.out.println(String.valueOf(board[i][0]) +String.valueOf(board[i][1]) +String.valueOf(board[i][2]));
         }
     }
 

@@ -14,7 +14,7 @@ public class Main {
 		}
 
 		//System.out.printf("hello, world\n");
-		System.out.println("Processing: " + boardPath + "\n");
+		System.out.println("\nProcessing: " + boardPath + "\n");
 		char[][] board = BoardReader.loadBoard(boardPath);
 		System.out.println("Board: ");
 		BoardReader.printBoard(board);
