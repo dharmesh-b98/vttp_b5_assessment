@@ -19,7 +19,29 @@ public class BoardReader {
         }
         br.close();
         fr.close();
-        return board;        
+
+        Integer Xcount = 0;
+        Integer Ocount = 0;
+        for (char[] crow : board){
+            for (char c : crow){
+                if (c == 'X'){
+                    Xcount++;
+                }
+                else if (c == 'O'){
+                    Ocount++;
+                }
+            }
+        }
+
+        try{
+            if (Xcount > Ocount){
+                throw new WrongBoardInputException("It is not X's turn in this board") ;
+            }
+        }catch (WrongBoardInputException e) {
+            e.printStackTrace();
+        }
+
+        return board;   
     }
 
 
