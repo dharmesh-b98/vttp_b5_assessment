@@ -66,11 +66,11 @@ public class Main {
 			String paragraph = "The %s (position) recorded number of cyclists was in %s (season), on a %s (day) in the month of %s (month).\nThere were a total of %d (total) cyclists. The weather was %s (weather).\n%s (day) was %s \n\n"
 				.formatted(orderList.get(i),
 				Utilities.toSeason(topBikes.get(i).getSeason()),
-				Utilities.toWeekday(topBikes.get(i).getWeekday()),
+				MoreUtilities.toDay(topBikes.get(i).getWeekday()),
 				Utilities.toMonth(topBikes.get(i).getMonth()),
 				topBikes.get(i).getCasual()+topBikes.get(i).getRegistered(),
 				weatherMap.get(topBikes.get(i).getWeather()),
-				Utilities.toWeekday(topBikes.get(i).getWeekday()),
+				MoreUtilities.toDay(topBikes.get(i).getWeekday()),
 				MoreUtilities.holidayString(topBikes.get(i).isHoliday())
 				);
 				System.out.println(paragraph);
