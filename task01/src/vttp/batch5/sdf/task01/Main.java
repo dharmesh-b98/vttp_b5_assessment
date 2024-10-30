@@ -39,6 +39,8 @@ public class Main {
 			BikeEntry bike = BikeEntry.toBikeEntry(lineArray);
 			bikeList.add(bike);
 		}
+		br.close();
+		fr.close();
 
 		List<BikeEntry> topBikes = new ArrayList<>();
 		Comparator<BikeEntry> comparator = Comparator.comparingInt(p -> p.getCasual()+p.getRegistered());
