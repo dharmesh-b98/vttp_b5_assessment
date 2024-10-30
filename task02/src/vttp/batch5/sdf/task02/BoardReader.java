@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class BoardReader {
-    public static char[][] loadBoard(String dataPath) throws IOException{
+    public static char[][] loadBoard(String dataPath) throws IOException, WrongBoardInputException{
         char[][] board = new char[][]{{' ', ' ', ' '},{' ', ' ', ' '},{' ', ' ', ' '}};
         FileReader fr = new FileReader(dataPath);
         BufferedReader br = new BufferedReader(fr);
@@ -33,12 +33,9 @@ public class BoardReader {
             }
         }
 
-        try{
-            if (Xcount > Ocount){
-                throw new WrongBoardInputException("It is not X's turn in this board") ;
-            }
-        }catch (WrongBoardInputException e) {
-            e.printStackTrace();
+        
+        if (Xcount > Ocount){
+            throw new WrongBoardInputException("It is not X's turn in this board") ;
         }
 
         return board;   
