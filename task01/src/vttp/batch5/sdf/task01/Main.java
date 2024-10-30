@@ -2,36 +2,22 @@ package vttp.batch5.sdf.task01;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.*;
 
 import vttp.batch5.sdf.task01.models.BikeEntry;
 
 // Use this class as the entry point of your program
 
 public class Main {
-
-	private static String holidayString(boolean holiday){
-		if (holiday == true){
-			return "a holiday";
-		}
-		else return "not a holiday";
-	}
-
 	public static void main(String[] args) throws IOException {
 
-		//System.out.printf("hello, world\n");
 		String csvPath = "task01/day.csv";
-		try{
-			csvPath = args[0];
-		}catch(ArrayIndexOutOfBoundsException e ){
-			System.err.println("Please add csvfile path as an arguement. In this case it is task01/day.csv");
-			throw e;
-		}
+
 
 		List<BikeEntry> bikeList = new ArrayList<>();
 		FileReader fr = new FileReader(csvPath);
 		BufferedReader br = new BufferedReader(fr);
 		
+
 		String line;
 		line = br.readLine();
 		while ((line = br.readLine()) != null){
@@ -42,16 +28,15 @@ public class Main {
 		br.close();
 		fr.close();
 
+
 		List<BikeEntry> topBikes = new ArrayList<>();
 		Comparator<BikeEntry> comparator = Comparator.comparingInt(p -> p.getCasual()+p.getRegistered());
 		BikeEntry firstBike = bikeList.stream().max(comparator).get();
 		topBikes.add(firstBike);
 		bikeList.remove(firstBike);
-		//System.out.println(firstBike.getCasual() + firstBike.getRegistered()); //print
 		BikeEntry secondBike = bikeList.stream().max(comparator).get();
 		topBikes.add(secondBike);
 		bikeList.remove(secondBike);
-		//System.out.println(firstBike.getCasual() + firstBike.getRegistered());//print
 		BikeEntry thirdBike = bikeList.stream().max(comparator).get();
 		topBikes.add(thirdBike);
 		bikeList.remove(thirdBike);
@@ -60,6 +45,7 @@ public class Main {
 		bikeList.remove(fourthBike);
 		BikeEntry fifthBike = bikeList.stream().max(comparator).get();
 		topBikes.add(fifthBike);
+
 
 		List<String> orderList = new ArrayList<>();
 		orderList.add("highest");
@@ -75,6 +61,7 @@ public class Main {
 		weatherMap.put(3, "Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds");
 		weatherMap.put(4, "Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog");
 
+
 		for (int i = 0; i < topBikes.size(); i ++){
 			String paragraph = "The %s (position) recorded number of cyclists was in %s (season), on a %s (day) in the month of %s (month).\nThere were a total of %d (total) cyclists. The weather was %s (weather).\n%s (day) was %s \n\n"
 				.formatted(orderList.get(i),
@@ -84,11 +71,9 @@ public class Main {
 				topBikes.get(i).getCasual()+topBikes.get(i).getRegistered(),
 				weatherMap.get(topBikes.get(i).getWeather()),
 				Utilities.toWeekday(topBikes.get(i).getWeekday()),
-				Main.holidayString(topBikes.get(i).isHoliday())
+				MoreUtilities.holidayString(topBikes.get(i).isHoliday())
 				);
 				System.out.println(paragraph);
 		}
-		
-
 	}
 }
