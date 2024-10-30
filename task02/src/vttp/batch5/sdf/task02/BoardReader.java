@@ -17,6 +17,8 @@ public class BoardReader {
             i++;
             
         }
+        br.close();
+        fr.close();
         return board;        
     }
 
@@ -98,8 +100,8 @@ public class BoardReader {
     public static List<List<Integer>> getUtility(char[][] board, List<List<Integer>> emptyPosList){
         List<List<Integer>> utilityList = new ArrayList<>();
         for (List<Integer> emptyPos : emptyPosList){
-            Integer posX = emptyPos.get(0);
-            Integer posY = emptyPos.get(1);
+            Integer posY = emptyPos.get(0);
+            Integer posX = emptyPos.get(1);
             Integer utility = Integer.MIN_VALUE;
             char[][] newBoard = new char[3][3]; //deepcopy of board
             for (int row = 0 ; row < 3; row ++){
@@ -108,11 +110,7 @@ public class BoardReader {
                 }
             }
 
-            newBoard[posX][posY] = 'X';
-            
-            System.out.println("__________________");
-            printBoard(newBoard); //////////////////////print
-            System.out.println("__________________");
+            newBoard[posY][posX] = 'X';
 
             if (didPlayerWin(newBoard, 'X')){
                 utility = 1;
@@ -122,11 +120,9 @@ public class BoardReader {
             }
             else{//board is not full
                 List<List<Integer>> nextEmptyPosList = getAllEmptyPos(newBoard);
-                nextEmptyPosList.forEach(x -> x.forEach(y->System.out.print(y)));
-                System.out.println(" "); ////////////print
                 for (List<Integer> nextEmptyPos : nextEmptyPosList){
-                    Integer nextPosX = nextEmptyPos.get(0);
-                    Integer nextPosY = nextEmptyPos.get(1);
+                    Integer nextPosY = nextEmptyPos.get(0);
+                    Integer nextPosX = nextEmptyPos.get(1);
                     char[][] nextNewBoard = new char[3][3]; //deepcopy of newBoard
                     for (int row = 0 ; row < 3; row ++){
                         for (int column = 0; column < 3; column ++){
@@ -134,28 +130,26 @@ public class BoardReader {
                         }
                     }
 
-                    nextNewBoard[nextPosX][nextPosY] = 'O';
-                    System.out.println("<><><>"); //////////////print
-                    printBoard(nextNewBoard);
-                    System.out.println("<><><>");
+                    nextNewBoard[nextPosY][nextPosX] = 'O';
                     if (didPlayerWin(nextNewBoard, 'O')){
                         utility = -1;
                         break;
                     }
-                    else { // if (isBoardFull(nextNewBoard))
+                    else { 
                         utility = 0;
                         
                     }
                 }
             }
             List<Integer> utilityEntry = new ArrayList<>();
-            utilityEntry.add(posX);
             utilityEntry.add(posY);
+            utilityEntry.add(posX);
             utilityEntry.add(utility);
             utilityList.add(utilityEntry);
         }
         return utilityList;
     }
+
 
 
     public static void printUtilityList(List<List<Integer>> utilityList){
